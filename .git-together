@@ -1,31 +1,5 @@
 [git-together "authors"]
-  cj = "Chris Jaehnen; cjaehnen"
-  et = "Elaine Tai; etai@pivotal.io"
-  ih = "Isaac Higgins; ihiggins"
-  pg = "Pravin Gangatirkar; pgangatirkar"
-  jk = "Jordan Komnick; jkomnick"
-  ab = "Adam Barney; abarney"
-  ap = "Arseny Poga; apoga"
-  mn = "Madhuri Neelam; mneelam"
-  er = "Emma Rogge; erogge"
-  jh = "Joe Hornback; jhornback"
-  jhoh = "Joe Hoh; jhoh"
-  bp = "Bob Pierce; bpierce"
-  ww = "Bill Waters; wjwaters2"
-  mm = "Melissa Mosser; mmosser"
-  db = "Dan Ben; dben"
-  go = "Greg Olmsted; golmsted"
-  mbm = "Marty Meyers; mmeyers"
-  dp = "Danny Papapietro; dpapapietro"
-  tt = "Tyler Tuttle; ttuttle2"
-  cu = "Chris Utz; cutz"
-  kc = "Keith Callis; kcallis"
-  mx = "Xu Matthew; mxu"
-  sn = "Sankar Naredla; sn"
-  ht = "Harika Tadi; htadi"
-  sp = "Suraj Parikh; sparikh"
-  mc = "Matthew Coe; bcoe"
-  as = "Austin Smith; atsmith2"
+  ats = "Austin Smith; atylersmith"
 
 [git-together]
-  domain = gaig.com
+  domain = outlook.com
