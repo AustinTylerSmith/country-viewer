@@ -16914,7 +16914,7 @@ export default function HomePage() {
     function filteredCountries(searchFor) {
         debugger
         return countriesArray.filter((country) => {
-            return country.name.includes(searchFor)
+            return country.name.toLowerCase().includes(searchFor.toLowerCase())
         })
     }
     function updateState(search) {
