@@ -1,11 +1,14 @@
 import {useState} from "react";
-function Searchbar() {
+
+function Searchbar({updateState}) {
 
     return (
         <>
             <div id={"searchBarContainer"}>
                 <img id={"searchIcon"} src={process.env.PUBLIC_URL + '/search.png'} alt={"search"}/>
-                <input id={"searchInput"} type={"search"} placeholder={"Search for a country..."}/>
+                <input id={"searchInput"} type={"search"} placeholder={"Search for a country..."} onChange={(event) => {
+                    updateState(event.target.value)
+                }}/>
             </div>
         </>
     )
@@ -27,11 +30,11 @@ function FilterByRegion() {
 
 }
 
-function FilterBar() {
+function FilterBar({updateState}) {
     return (
         <>
             <div id={"filterBarContainer"}>
-                <Searchbar></Searchbar>
+                <Searchbar updateState={updateState}></Searchbar>
                 <FilterByRegion></FilterByRegion>
             </div>
         </>
@@ -70,13 +73,13 @@ function CountryCardsListed({countries}) {
             {countries.map((country, index) => {
                 return (
                     <CountryCard key={index} country={country}></CountryCard>
-                    )
+                )
             })}
         </>
     )
 }
 
-const countriesArray = [
+let countriesArray = [
     {
         "name": "Afghanistan",
         "topLevelDomain": [".af"],
@@ -16901,15 +16904,30 @@ const countriesArray = [
     }
 ]
 
+// create function that updates state then filters array of countries
+// on change of input we update the state then use that state to filter the array
+
+
 export default function HomePage() {
-    const [searchFor, setSearchFor] = useState("")
+    const [ searchFor, setSearchFor ] = useState("Al")
+
+    function filteredCountries(searchFor) {
+        debugger
+        return countriesArray.filter((country) => {
+            return country.name.includes(searchFor)
+        })
+    }
+    function updateState(search) {
+        debugger
+        setSearchFor(search)
+    }
 
     return (
         <>
             <div className={"lightMode"}>
-                <FilterBar></FilterBar>
+                <FilterBar updateState={updateState}></FilterBar>
                 <div id={"countryCardsListedContainer"}>
-                    <CountryCardsListed countries={countriesArray}></CountryCardsListed>
+                    <CountryCardsListed countries={filteredCountries(searchFor)}></CountryCardsListed>
                 </div>
             </div>
         </>
