@@ -1,41 +1,43 @@
 import {useState} from "react";
 
-function Searchbar({updateState}) {
+function Searchbar({updateSearchForState}) {
 
     return (
         <>
             <div id={"searchBarContainer"}>
                 <img id={"searchIcon"} src={process.env.PUBLIC_URL + '/search.png'} alt={"search"}/>
                 <input id={"searchInput"} type={"search"} placeholder={"Search for a country..."} onChange={(event) => {
-                    updateState(event.target.value)
+                    updateSearchForState(event.target.value)
                 }}/>
             </div>
         </>
     )
 }
 
-function FilterByRegion() {
+function FilterByRegion({updateFilterByState}) {
     return (
         <>
-            <select name="region" id="regionNames">
+            <select name="region" id="regionNames" onChange={(event) => {
+                updateFilterByState(event.target.value)
+            }}>
                 <option value="" disabled={"true"} selected={"true"}>Filter by Region</option>
-                <option value="africa">Africa</option>
-                <option value="america">America</option>
-                <option value="asia">Asia</option>
-                <option value="europe">Europe</option>
-                <option value="oceania">Oceania</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">Americas</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
             </select>
         </>
     )
 
 }
 
-function FilterBar({updateState}) {
+function FilterBar({ updateSearchForState, updateFilterByState }) {
     return (
         <>
             <div id={"filterBarContainer"}>
-                <Searchbar updateState={updateState}></Searchbar>
-                <FilterByRegion></FilterByRegion>
+                <Searchbar updateSearchForState={updateSearchForState}></Searchbar>
+                <FilterByRegion updateFilterByState={updateFilterByState}></FilterByRegion>
             </div>
         </>
     )
@@ -16909,25 +16911,28 @@ let countriesArray = [
 
 
 export default function HomePage() {
-    const [ searchFor, setSearchFor ] = useState("Al")
+    const [ searchFor, setSearchFor ] = useState("")
+    const [ filterBy, setFilterBy ] = useState("")
 
-    function filteredCountries(searchFor) {
-        debugger
+    function filteredCountries(searchFor, filterBy) {
         return countriesArray.filter((country) => {
-            return country.name.toLowerCase().includes(searchFor.toLowerCase())
+            return country.name.toLowerCase().includes(searchFor.toLowerCase()) && country.region.includes(filterBy)
         })
     }
-    function updateState(search) {
-        debugger
+    function updateSearchForState(search) {
         setSearchFor(search)
+    }
+
+    function updateFilterByState(filterBy) {
+        setFilterBy(filterBy)
     }
 
     return (
         <>
             <div className={"lightMode"}>
-                <FilterBar updateState={updateState}></FilterBar>
+                <FilterBar updateSearchForState={updateSearchForState} updateFilterByState={updateFilterByState}></FilterBar>
                 <div id={"countryCardsListedContainer"}>
-                    <CountryCardsListed countries={filteredCountries(searchFor)}></CountryCardsListed>
+                    <CountryCardsListed countries={filteredCountries(searchFor, filterBy)}></CountryCardsListed>
                 </div>
             </div>
         </>

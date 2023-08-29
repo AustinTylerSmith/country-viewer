@@ -50,8 +50,9 @@ code {
 .lightMode {
   background-color: hsl(0, 0%, 98%);
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
   padding-top: 15px;
+  padding-bottom: 50px;
 }
 
 .headerMargins {
