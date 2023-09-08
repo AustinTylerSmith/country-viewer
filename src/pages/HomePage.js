@@ -1,13 +1,16 @@
 import {useState} from "react";
-import { getAllCountries } from "../services/countryService";
+import {getAllCountries} from "../services/countryService";
 
-function Searchbar({updateSearchForState}) {
+function Searchbar({updateSearchForState, themeMode}) {
 
     return (
         <>
-            <div id={"searchBarContainer"}>
+            <div id={"searchBarContainer"}
+                 className={themeMode ? 'lightModeElem lightModeBoxShadow' : 'drkModeElem drkModeBoxShadow'}>
                 <img id={"searchIcon"} src={process.env.PUBLIC_URL + '/search.png'} alt={"search"}/>
-                <input id={"searchInput"} type={"search"} placeholder={"Search for a country..."} onChange={(event) => {
+                <input id={"searchInput"} type={"search"}
+                       className={themeMode ? 'lightModeText lightModeElem' : 'drkModeText drkModeElem'}
+                       placeholder={"Search for a country..."} onChange={(event) => {
                     updateSearchForState(event.target.value)
                 }}/>
             </div>
@@ -15,10 +18,12 @@ function Searchbar({updateSearchForState}) {
     )
 }
 
-function FilterByRegion({updateFilterByState}) {
+function FilterByRegion({updateFilterByState, themeMode}) {
     return (
         <>
-            <select defaultValue={""} name="region" id="regionNames" onChange={(event) => {
+            <select
+                className={themeMode ? 'lightModeText lightModeElem lightModeBoxShadow' : 'drkModeText drkModeElem drkModeBoxShadow'}
+                defaultValue={""} name="region" id="regionNames" onChange={(event) => {
                 updateFilterByState(event.target.value)
             }}>
                 <option value="" disabled={true}>Filter by Region</option>
@@ -34,59 +39,64 @@ function FilterByRegion({updateFilterByState}) {
 
 }
 
-function FilterBar({ updateSearchForState, updateFilterByState }) {
+function FilterBar({updateSearchForState, updateFilterByState, themeMode}) {
     return (
         <>
             <div id={"filterBarContainer"}>
-                <Searchbar updateSearchForState={updateSearchForState}></Searchbar>
-                <FilterByRegion updateFilterByState={updateFilterByState}></FilterByRegion>
+                <Searchbar updateSearchForState={updateSearchForState} themeMode={themeMode}></Searchbar>
+                <FilterByRegion updateFilterByState={updateFilterByState} themeMode={themeMode}></FilterByRegion>
             </div>
         </>
     )
 }
 
-function CountryCard({country}) {
+function CountryCard({country, themeMode}) {
     return (
         <>
-            <div id={"cardContainer"}>
-                <img id={"countryFlag"} src={country.flags.png} alt={"countryFlag"}/>
-                <div id={"countryInfoContainer"}>
-                    <h3 id={"countryTitle"}>{country.name.common}</h3>
-                    <div id={"population"} className={"flexContainer"}>
-                        <h4 className={"countryInfo"}>Population:</h4> <span
-                        className={"countrySpan"}>{country.population.toLocaleString()}</span>
-                    </div>
-                    <div id={"region"} className={"flexContainer"}>
-                        <h4 className={"countryInfo"}>Region:</h4> <span
-                        className={"countrySpan"}>{country.region}</span>
-                    </div>
-                    <div id={"capitol"} className={"flexContainer"}>
-                        <h4 className={"countryInfo"}>Capital:</h4> <span
-                        className={"countrySpan"}>{country.capital}</span>
+                <div className={themeMode ? 'lightModeElem lightModeBoxShadow' : 'drkModeElem drkModeBoxShadow'}
+                     id={"cardContainer"}>
+                    <img id={"countryFlag"} src={country.flags.png} alt={"countryFlag"}/>
+                    <div id={"countryInfoContainer"}>
+                        <h3 className={themeMode ? 'lightModeText' : 'drkModeText'}
+                            id={"countryTitle"}>{country.name.common}</h3>
+                        <div id={"population"} className={"flexContainer"}>
+                            <h4 className={themeMode ? 'countryInfo lightModeText' : 'countryInfo drkModeText'}>Population:</h4>
+                            <span
+                                className={themeMode ? 'countrySpan lightModeText' : 'countrySpan drkModeText'}>{country.population.toLocaleString()}</span>
+                        </div>
+                        <div id={"region"} className={"flexContainer"}>
+                            <h4 className={themeMode ? 'countryInfo lightModeText' : 'countryInfo drkModeText'}>Region:</h4>
+                            <span
+                                className={themeMode ? 'countrySpan lightModeText' : 'countrySpan drkModeText'}>{country.region}</span>
+                        </div>
+                        <div id={"capitol"} className={"flexContainer"}>
+                            <h4 className={themeMode ? 'countryInfo lightModeText' : 'countryInfo drkModeText'}>Capital:</h4>
+                            <span
+                                className={themeMode ? 'countrySpan lightModeText' : 'countrySpan drkModeText'}>{country.capital}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 
 }
 
-function CountryCardsListed({countries}) {
+function CountryCardsListed({countries, themeMode }) {
     return (
         <>
             {countries.map((country, index) => {
                 return (
-                    <CountryCard key={index} country={country}></CountryCard>
+                    <CountryCard key={index} country={country} themeMode={themeMode}></CountryCard>
                 )
             })}
         </>
     )
 }
 
-export default function HomePage() {
+export default function HomePage({ themeMode }) {
     const [searchFor, setSearchFor] = useState("")
     const [filterBy, setFilterBy] = useState("")
-    const [countryArray, setCountryArray ] = useState([])
+    const [countryArray, setCountryArray] = useState([])
 
     getAllCountries().then((response) => {
         setCountryArray(response)
@@ -107,10 +117,11 @@ export default function HomePage() {
 
     return (
         <>
-            <div className={"lightMode"}>
-                <FilterBar updateSearchForState={updateSearchForState} updateFilterByState={updateFilterByState}></FilterBar>
+            <div className={themeMode ? 'lightModeBackground' : 'drkModeBackground'}>
+                <FilterBar updateSearchForState={updateSearchForState} updateFilterByState={updateFilterByState}
+                           themeMode={themeMode}></FilterBar>
                 <div id={"countryCardsListedContainer"}>
-                    <CountryCardsListed countries={filteredCountries(searchFor, filterBy)}></CountryCardsListed>
+                    <CountryCardsListed countries={filteredCountries(searchFor, filterBy)} themeMode={themeMode}></CountryCardsListed>
                 </div>
             </div>
         </>

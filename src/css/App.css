@@ -37,29 +37,4 @@
     }
 }
 
-.drkModeElem {
-    background-color: hsl(209, 23%, 22%);
-    color: hsl(209, 23%, 22%);
-}
-
-.drkModeBackground {
-    background-color: hsl(207, 26%, 17%);
-}
-
-.lightModeText {
-    color: hsl(200, 15%, 8%);
-}
-
-.lightModeInput {
-    color: hsl(0, 0%, 52%);
-}
-
-.lightModeBackground {
-    background-color: hsl(0, 0%, 98%)
-}
-
-.lightModeElem .drkModeText {
-    background-color: hsl(0, 0%, 100%);
-}
-
 

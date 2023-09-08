@@ -1,15 +1,23 @@
-export default function Header() {
+export default function Header({themeMode, clickThemeMode}) {
     return (
         <>
-            <div id={"headerContainer"}>
-                <div id={"headerTitle"} className={"headerMargins"}>
+            <div id={"headerContainer"} className={themeMode ? 'lightModeElem' : 'drkModeElem'}>
+                <div id={"headerTitle"} className={themeMode ? 'lightModeText headerMargins' : 'drkModeText headerMargins'}>
                     Where in the world?
                 </div>
                 <div id={"darkModeContainer"} className={"headerMargins"}>
-                    <img id={"darkMode"} src={process.env.PUBLIC_URL + '/darkMode.png'} alt={"MoonIcon"}/>
-                    <div id={"themeMode"}>
-                        Dark Mode
-                    </div>
+                    <button id={"darkModeButton"} className={themeMode ? 'lightModeElem' : 'drkModeElem'}
+                            onClick={clickThemeMode}>
+                        {themeMode ?
+                            <div id={"themeMode"} className={themeMode ? 'lightModeText' : 'drkModeText'}>
+                                Dark Mode
+                            </div>
+                            :
+                            <div id={"themeMode"} className={themeMode ? 'lightModeText' : 'drkModeText'}>
+                                Light Mode
+                            </div>
+                        }
+                    </button>
                 </div>
             </div>
         </>

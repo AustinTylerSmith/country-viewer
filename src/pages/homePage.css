@@ -1,17 +1,23 @@
 #searchBarContainer {
     width: 350px;
     height: fit-content;
-    box-shadow: 2px 2px 2px 2px white;
-    background-color: white;
     display: flex;
     flex-direction: row;
     margin-left: 118px;
     margin-top: 30px;
 }
 
+.lightModeBoxShadow {
+    box-shadow: 2px 2px 2px 2px hsl(0, 0%, 98%);
+}
+
+.drkModeBoxShadow {
+    box-shadow: 2px 2px 2px 2px hsl(207, 26%, 17%);
+}
+
+
 #searchInput {
     border: none;
-    background-color: white;
     outline: none;
     width: 325px;
     font-size: larger;
@@ -36,7 +42,6 @@
     font-size: larger;
     padding: 10px;
     border: none;
-    box-shadow: 2px 2px 2px 2px white;
     position: relative;
     display: inline-block;
 }
@@ -46,9 +51,7 @@
     flex-direction: column;
     height: 400px;
     width: 350px;
-    background-color: white;
     margin-top: 40px;
-    box-shadow: 2px 2px 2px 2px white;
 }
 
 #countryInfoContainer {
@@ -91,10 +94,32 @@
     margin-right: 25px;
 }
 
-.lightMode {
-    background-color: hsl(0, 0%, 98%);
-    width: 100vw;
-    height: fit-content;
-    padding-top: 15px;
-    padding-bottom: 50px;
+@media screen and (max-width: 420px ) {
+    #filterBarContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #searchBarContainer {
+        width: 318px;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 30px;
+    }
+
+    #regionNames {
+        margin-top: 30px;
+        margin-right: 20px;
+        margin-left: 20px;
+        height: fit-content;
+        font-size: larger;
+        padding: 10px;
+        border: none;
+        position: relative;
+        display: inline-block;
+    }
 }
