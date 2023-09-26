@@ -21,7 +21,7 @@ function CountryViewer() {
         <>
             <React.StrictMode>
                 <Header themeMode={themeMode} clickThemeMode={clickThemeMode} />
-                <AppRouter themeMode={themeMode} />
+                <AppRouter themeMode={themeMode}/>
             </React.StrictMode>
         </>
     )

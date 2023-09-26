@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {getAllCountries} from "../services/countryService";
+import {Link} from "react-router-dom";
 
 function Searchbar({updateSearchForState, themeMode}) {
 
@@ -53,6 +54,7 @@ function FilterBar({updateSearchForState, updateFilterByState, themeMode}) {
 function CountryCard({country, themeMode}) {
     return (
         <>
+            <Link to={'/detail'} state={country}>
                 <div className={themeMode ? 'lightModeElem lightModeBoxShadow' : 'drkModeElem drkModeBoxShadow'}
                      id={"cardContainer"}>
                     <img id={"countryFlag"} src={country.flags.png} alt={"countryFlag"}/>
@@ -76,24 +78,26 @@ function CountryCard({country, themeMode}) {
                         </div>
                     </div>
                 </div>
+            </Link>
         </>
     )
 
 }
 
-function CountryCardsListed({countries, themeMode }) {
+function CountryCardsListed({countries, themeMode}) {
     return (
         <>
             {countries.map((country, index) => {
                 return (
-                    <CountryCard key={index} country={country} themeMode={themeMode}></CountryCard>
+                    <CountryCard key={index} country={country} themeMode={themeMode}>
+                    </CountryCard>
                 )
             })}
         </>
     )
 }
 
-export default function HomePage({ themeMode }) {
+export default function HomePage({themeMode}) {
     const [searchFor, setSearchFor] = useState("")
     const [filterBy, setFilterBy] = useState("")
     const [countryArray, setCountryArray] = useState([])
@@ -107,6 +111,7 @@ export default function HomePage({ themeMode }) {
             return country.name.common.toLowerCase().includes(searchFor.toLowerCase()) && country.region.includes(filterBy)
         })
     }
+
     function updateSearchForState(search) {
         setSearchFor(search)
     }
@@ -121,7 +126,8 @@ export default function HomePage({ themeMode }) {
                 <FilterBar updateSearchForState={updateSearchForState} updateFilterByState={updateFilterByState}
                            themeMode={themeMode}></FilterBar>
                 <div id={"countryCardsListedContainer"}>
-                    <CountryCardsListed countries={filteredCountries(searchFor, filterBy)} themeMode={themeMode}></CountryCardsListed>
+                    <CountryCardsListed countries={filteredCountries(searchFor, filterBy)} themeMode={themeMode}>
+                    </CountryCardsListed>
                 </div>
             </div>
         </>
