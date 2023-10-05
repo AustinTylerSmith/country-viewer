@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/index.css';
 import './pages/homePage.css'
+import './pages/detailPage.css'
 import reportWebVitals from './reportWebVitals';
 import Header from "./components/HeaderComponent";
 import AppRouter from "./router/AppRouter";

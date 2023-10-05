@@ -1,0 +1,47 @@
+#flexContainerDetail {
+    display: flex;
+    gap: 150px;
+    justify-content: center;
+}
+
+#detailPageInfoContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#countryDetailsGroup {
+    display: flex;
+    align-content: space-between;
+}
+
+#detailFlag {
+    width: 525px;
+}
+
+#countryDetailsGroup {
+    width: 750px;
+    justify-content: space-between;
+}
+
+#leftDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+#rightDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#detailPageContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#backButton {
+    margin-left: 184px;
+    margin-top: 40px;
+    max-width: fit-content;
+}
