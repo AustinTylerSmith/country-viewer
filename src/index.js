@@ -14,7 +14,16 @@ root.render(
 
 function CountryViewer() {
     const [ themeMode, setThemeMode ] = useState(true)
+    const [searchFor, setSearchFor] = useState("")
+    const [filterBy, setFilterBy] = useState("")
 
+    function updateSearchForState(search) {
+        setSearchFor(search)
+    }
+
+    function updateFilterByState(filterBy) {
+        setFilterBy(filterBy)
+    }
     function clickThemeMode() {
         setThemeMode(!themeMode)
     }
@@ -22,7 +31,7 @@ function CountryViewer() {
         <>
             <React.StrictMode>
                 <Header themeMode={themeMode} clickThemeMode={clickThemeMode} />
-                <AppRouter themeMode={themeMode}/>
+                <AppRouter themeMode={themeMode} searchFor={searchFor} filterBy={filterBy} updateSearchForState={updateSearchForState} updateFilterByState={updateFilterByState}/>
             </React.StrictMode>
         </>
     )

@@ -2,7 +2,7 @@ import {useState} from "react";
 import {getAllCountries} from "../services/countryService";
 import {Link} from "react-router-dom";
 
-function Searchbar({updateSearchForState, themeMode}) {
+function Searchbar({updateSearchForState, themeMode, searchFor}) {
 
     return (
         <>
@@ -10,6 +10,7 @@ function Searchbar({updateSearchForState, themeMode}) {
                  className={themeMode ? 'lightModeElem lightModeBoxShadow' : 'drkModeElem drkModeBoxShadow'}>
                 <img id={"searchIcon"} src={process.env.PUBLIC_URL + '/search.png'} alt={"search"}/>
                 <input id={"searchInput"} type={"search"}
+                       value={searchFor !== null || searchFor !== '' ? searchFor : ''}
                        className={themeMode ? 'lightModeText lightModeElem' : 'drkModeText drkModeElem'}
                        placeholder={"Search for a country..."} onChange={(event) => {
                     updateSearchForState(event.target.value)
@@ -19,12 +20,12 @@ function Searchbar({updateSearchForState, themeMode}) {
     )
 }
 
-function FilterByRegion({updateFilterByState, themeMode}) {
+function FilterByRegion({updateFilterByState, themeMode, filterBy}) {
     return (
         <>
             <select
                 className={themeMode ? 'lightModeText lightModeElem lightModeBoxShadow' : 'drkModeText drkModeElem drkModeBoxShadow'}
-                defaultValue={""} name="region" id="regionNames" onChange={(event) => {
+                defaultValue={filterBy !== null || filterBy !== "" ? filterBy : ""} name="region" id="regionNames" onChange={(event) => {
                 updateFilterByState(event.target.value)
             }}>
                 <option value="" disabled={true}>Filter by Region</option>
@@ -40,12 +41,12 @@ function FilterByRegion({updateFilterByState, themeMode}) {
 
 }
 
-function FilterBar({updateSearchForState, updateFilterByState, themeMode}) {
+function FilterBar({updateSearchForState, updateFilterByState, themeMode, searchFor, filterBy}) {
     return (
         <>
             <div id={"filterBarContainer"}>
-                <Searchbar updateSearchForState={updateSearchForState} themeMode={themeMode}></Searchbar>
-                <FilterByRegion updateFilterByState={updateFilterByState} themeMode={themeMode}></FilterByRegion>
+                <Searchbar updateSearchForState={updateSearchForState} themeMode={themeMode} searchFor={searchFor}></Searchbar>
+                <FilterByRegion updateFilterByState={updateFilterByState} themeMode={themeMode} filterBy={filterBy}></FilterByRegion>
             </div>
         </>
     )
@@ -97,9 +98,7 @@ function CountryCardsListed({countries, themeMode}) {
     )
 }
 
-export default function HomePage({themeMode}) {
-    const [searchFor, setSearchFor] = useState("")
-    const [filterBy, setFilterBy] = useState("")
+export default function HomePage({themeMode, searchFor, filterBy, updateSearchForState, updateFilterByState}) {
     const [countryArray, setCountryArray] = useState([])
 
     getAllCountries().then((response) => {
@@ -112,19 +111,11 @@ export default function HomePage({themeMode}) {
         })
     }
 
-    function updateSearchForState(search) {
-        setSearchFor(search)
-    }
-
-    function updateFilterByState(filterBy) {
-        setFilterBy(filterBy)
-    }
-
     return (
         <>
             <div className={themeMode ? 'lightModeBackground' : 'drkModeBackground'}>
                 <FilterBar updateSearchForState={updateSearchForState} updateFilterByState={updateFilterByState}
-                           themeMode={themeMode}></FilterBar>
+                           themeMode={themeMode} searchFor={searchFor} filterBy={filterBy}></FilterBar>
                 <div id={"countryCardsListedContainer"}>
                     <CountryCardsListed countries={filteredCountries(searchFor, filterBy)} themeMode={themeMode}>
                     </CountryCardsListed>
